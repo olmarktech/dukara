@@ -1,0 +1,24 @@
+{
+    "name": "TestManage1",
+    "alias": "testmanage1",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\TestManage1\\Providers\\TestManage1ServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "paymentGateway": {
+            "name": "Your Payment Gateway Name",
+            "slug": "payment_gateway_slug",
+            "tenant": false,
+            "chargeCustomerMethodNameSpace": "Modules\\TestManage\\Http\\Controllers\\TestManageController",
+            "chargeCustomerMethodName": "paymentGateway",
+            "test_mode" : false,
+            "status" : true,
+            "extraInfoMarkupBlade" : "payment_blade",
+            "logo_file" : "payment-logo.png"
+        }
+}

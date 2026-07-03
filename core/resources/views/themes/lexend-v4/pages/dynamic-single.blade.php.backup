@@ -1,0 +1,70 @@
+@extends('themes.lexend-v4.layouts.app')
+
+@section('page-title', $page_post->title ?? '')
+
+@section('content')
+    {{-- Render Page Builder Content --}}
+    @if($page_post->page_builder === 1)
+        @if($page_post->visibility === 1)
+            @if(auth('web')->check())
+                {{-- Render page builder content safely --}}
+                @php
+                    $pageBuilderContent = \Plugins\PageBuilder\PageBuilderSetup::render_frontend_pagebuilder_content_for_dynamic_page('dynamic_page', $page_post->id);
+                    // Sanitize to prevent Blade directive conflicts
+                    $pageBuilderContent = preg_replace('/@endsection\s*/', '', $pageBuilderContent);
+                    $pageBuilderContent = preg_replace('/@section\s*\([^)]+\)\s*/', '', $pageBuilderContent);
+                @endphp
+                {!! $pageBuilderContent !!}
+            @else
+                <div class="section panel overflow-hidden">
+                    <div class="section-outer panel py-6 lg:py-9">
+                        <div class="container max-w-xl">
+                            <div class="alert alert-warning text-center">
+                                <p><a class="uc-link text-primary" href="{{route('landlord.user.login')}}">{{__('Login')}}</a> {{__('to see this page')}} </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        @else
+            {{-- Render page builder content safely --}}
+            @php
+                $pageBuilderContent = \Plugins\PageBuilder\PageBuilderSetup::render_frontend_pagebuilder_content_for_dynamic_page('dynamic_page', $page_post->id);
+                // Sanitize to prevent Blade directive conflicts
+                $pageBuilderContent = preg_replace('/@endsection\s*/', '', $pageBuilderContent);
+                $pageBuilderContent = preg_replace('/@section\s*\([^)]+\)\s*/', '', $pageBuilderContent);
+            @endphp
+            {!! $pageBuilderContent !!}
+        @endif
+    @else
+        {{-- Regular Page Content --}}
+        <div class="section panel overflow-hidden">
+            <div class="section-outer panel py-6 lg:py-9">
+                <div class="container max-w-xl">
+                    <div class="section-inner panel">
+                        @if($page_post->visibility === 1)
+                            @if(auth('web')->check())
+                                <div class="dynamic-page-content-wrap">
+                                    {!! $page_post->page_content !!}
+                                </div>
+                            @else
+                                <div class="alert alert-warning text-center">
+                                    <p><a class="uc-link text-primary" href="{{route('landlord.user.login')}}">{{__('Login')}}</a> {{__('to see this page')}} </p>
+                                </div>
+                            @endif
+                        @else
+                            <div class="dynamic-page-content-wrap">
+                                {!! $page_post->page_content !!}
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    @if(Auth::guard('admin')->user())
+        @include('tenant.frontend.partials.inpage-edit',['page_post' => $page_post])
+    @endif
+@endsection
+

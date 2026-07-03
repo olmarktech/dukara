@@ -1,0 +1,32 @@
+{
+    "name": "Lexend v4",
+    "slug": "lexend-v4",
+    "description": "Modern SaaS & Software Landing Page Theme",
+    "author": "Nazmart",
+    "version": "4.0.0",
+    "status": true,
+    "screenshot": [
+        {
+            "primary": "screenshot.png",
+            "sort": "desc"
+        }
+    ],
+    "headerHook": [
+        {
+            "style": [],
+            "script": [],
+            "blade": [],
+            "navbarArea": "header",
+            "breadcrumbArea": "breadcrumb"
+        }
+    ],
+    "footerHook": [
+        {
+            "style": [],
+            "script": [],
+            "blade": [],
+            "widgetArea": "footer-lexend"
+        }
+    ]
+}
+
