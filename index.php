@@ -9,7 +9,6 @@ if(!file_exists('core/.env')){
     echo 'Please install the script first, by yourdomain.com/install wizard <br>';
    if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
         $url = "https://";
-
    }else{
         $url = "http://";
    }
